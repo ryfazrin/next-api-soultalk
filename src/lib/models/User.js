@@ -6,8 +6,8 @@ const UserSchema = new mongoose.Schema({
   password: { type: String, required: true },
   bio: { type: String, default: '' },
   profilePicture: { type: String, default: '' },
-  followers: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }],
-  following: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }],
+  followers: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }], // Followers list
+  following: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }], // Following list
 }, { timestamps: true });
 
 export default mongoose.models.User || mongoose.model('User', UserSchema);
