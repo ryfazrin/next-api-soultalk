@@ -6,6 +6,10 @@ const ThreadSchema = new mongoose.Schema({
     ref: 'User', // Referensi ke model User
     required: true,
   },
+  title: {
+    type: String,
+    required: true,
+  },
   content: {
     type: String,
     required: true,

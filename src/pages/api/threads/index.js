@@ -35,10 +35,15 @@ export default async function handler(req, res) {
     const user = await authMiddleware(req, res);
     if (!user) return;
 
-    const { content, tags } = req.body;
+    const { title, content, tags } = req.body;
+
+    if (!title || !content) {
+        return res.status(400).json({ message: 'Title and content are required' });
+    }
 
     try {
       const thread = await Thread.create({
+        title,
         content,
         tags,
         user: user._id,
