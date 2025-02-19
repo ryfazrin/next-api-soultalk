@@ -1,7 +1,7 @@
-import { connectDB } from '../../../lib/db';
-import Thread from '../../../lib/models/Thread';
-import Comment from '../../../lib/models/Comment';
-import authMiddleware from '../../../utils/authMiddleware';
+import { connectDB } from '../../../../lib/db';
+import Thread from '../../../../lib/models/Thread';
+import Comment from '../../../../lib/models/Comment';
+import authMiddleware from '../../../../utils/authMiddleware';
 
 export default async function handler(req, res) {
   await connectDB();
