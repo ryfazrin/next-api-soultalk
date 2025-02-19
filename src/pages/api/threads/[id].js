@@ -1,5 +1,6 @@
 import { connectDB } from '../../../lib/db';
 import Thread from '../../../lib/models/Thread';
+import Comment from '../../../lib/models/Comment';
 import authMiddleware from '../../../utils/authMiddleware';
 
 export default async function handler(req, res) {
@@ -8,7 +9,13 @@ export default async function handler(req, res) {
 
   if (req.method === 'GET') {
     try {
-      const thread = await Thread.findById(id).populate('user', 'username');
+      const thread = await Thread.findById(id)
+        .populate('user', 'username')
+        .populate({
+          path: 'comments',
+          populate: { path: 'user', select: 'username' }, // Mengisi user dalam komentar
+        });
+
       if (!thread) return res.status(404).json({ message: 'Thread not found' });
 
       res.status(200).json(thread);
@@ -50,8 +57,11 @@ export default async function handler(req, res) {
         return res.status(403).json({ message: 'Unauthorized to delete this thread' });
       }
 
+      // Hapus thread dan semua komentar yang terkait
+      await Comment.deleteMany({ thread: id });
       await Thread.findByIdAndDelete(id);
-      res.status(200).json({ message: 'Thread deleted' });
+
+      res.status(200).json({ message: 'Thread and associated comments deleted' });
     } catch (error) {
       res.status(500).json({ message: 'Error deleting thread', error });
     }
