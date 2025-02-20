@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server'
  
 // const allowedOrigins = ['https://acme.com', 'https://my-app.org']
-const allowedOrigins = ['http://localhost:5173']
+const allowedOrigins = ['https://soultalk-fe.vercel.app/', 'http://localhost:5173']
  
 const corsOptions = {
   'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
